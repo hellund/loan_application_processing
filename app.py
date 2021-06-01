@@ -14,13 +14,13 @@ import numpy as np
 
 test_df = pd.read_csv('test.csv')
 
-
+st.title('Loan application')
 st.markdown('Please fill in information below: ')
 gender = st.selectbox('Gender: ',('Male', 'Female'))
-married = st.selectbox('Married? ',('Yes', 'No'))
+married = st.selectbox('Married? ',('No', 'Yes'))
 dependents = st.selectbox('How many are dependent on you? ',('0','1','2','+3'))
 education = st.selectbox('Education: ',('Graduate', 'Not Graduate'))
-self_employed = st.selectbox('Are you self employed? ',('Yes', 'No'))
+self_employed = st.selectbox('Are you self employed? ',('No', 'Yes'))
 slider_a_income = st.slider('What is your income?',value=3000, min_value=0, max_value=10000, step=100)
 applicant_income = st.number_input('',value=slider_a_income)
 slider_co_income = st.slider('What is your coapplicant`s income?' ,value=3500, min_value=0, max_value=10000, step=100)
