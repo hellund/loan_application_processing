@@ -27,7 +27,7 @@ slider_co_income = st.slider('What is your coapplicant`s income?' ,value=3500, m
 coapplicant_income = st.number_input('',value=slider_co_income)
 slider_loan_amount = st.slider('How much do u want to loan?',value=200, min_value=0, max_value=600, step=10)
 loan_amount = st.number_input('',value=slider_loan_amount)
-slider_loan_amount_term = st.slider('Term loan:', value=250, min_value=0, max_value=700, step=10)
+slider_loan_amount_term = st.slider('How long is the term of the loan in months?', value=360, min_value=0, max_value=700, step=10)
 loan_amount_term = st.number_input('',value=slider_loan_amount_term)
 credit_history = st.selectbox('Your credit history: ',('0', '1'))
 property_area = st.selectbox('Your property area? ',('Urban', 'Rural', 
@@ -51,7 +51,7 @@ new_df = pd.DataFrame.from_records(new_data, index=[0], columns=new_data.keys())
 
 test_df = test_df.append(new_df, ignore_index=True)
 
-test_df = pd.get_dummies(data=test_df, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
+test_df = pd.get_dummies(data=test_df, drop_first=True, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
 test_df['Loan_ID'] = test_df['Loan_ID'].str.lstrip('LP') 
 test_df.head()
 # Normalizing data using MinMaxScaler

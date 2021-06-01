@@ -23,8 +23,8 @@ test_df = pd.DataFrame(test_data)
 
 
 # Create dummies
-df = pd.get_dummies(data=df, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
-test_df = pd.get_dummies(data=test_df, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
+df = pd.get_dummies(data=df, drop_first=True, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
+test_df = pd.get_dummies(data=test_df, drop_first=True, columns=['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Property_Area'])
 
 # Extract feature and target names
 feature_names = df.columns[:-1]
