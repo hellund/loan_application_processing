@@ -15,16 +15,20 @@ import numpy as np
 test_df = pd.read_csv('test.csv')
 
 
-st.markdown(f'Please fill in information below: ')
+st.markdown('Please fill in information below: ')
 gender = st.selectbox('Gender: ',('Male', 'Female'))
 married = st.selectbox('Married? ',('Yes', 'No'))
 dependents = st.selectbox('How many are dependent on you? ',('0','1','2','+3'))
 education = st.selectbox('Education: ',('Graduate', 'Not Graduate'))
 self_employed = st.selectbox('Are you self employed? ',('Yes', 'No'))
-applicant_income = st.number_input('What is your income? ',value=6000)
-coapplicant_income = st.number_input('What is your coapplicant`s income? ',value=2000)
-loan_amount = st.number_input('Amount to loan: ',value=300)
-loan_amount_term = st.number_input('Loan_amount_term: ',value=360)
+slider_a_income = st.slider('What is your income?',value=3000, min_value=0, max_value=10000, step=100)
+applicant_income = st.number_input('',value=slider_a_income)
+slider_co_income = st.slider('What is your coapplicant`s income?' ,value=3500, min_value=0, max_value=10000, step=100)
+coapplicant_income = st.number_input('',value=slider_co_income)
+slider_loan_amount = st.slider('How much do u want to loan?',value=200, min_value=0, max_value=600, step=10)
+loan_amount = st.number_input('',value=slider_loan_amount)
+slider_loan_amount_term = st.slider('Term loan:', value=250, min_value=0, max_value=700, step=10)
+loan_amount_term = st.number_input('',value=slider_loan_amount_term)
 credit_history = st.selectbox('Your credit history: ',('0', '1'))
 property_area = st.selectbox('Your property area? ',('Urban', 'Rural', 
                                                      'Semiurban'))
@@ -69,4 +73,10 @@ y_pred = model.predict(X_test)
 pred_df = pd.DataFrame(y_pred, columns = ['Loan_Status'])
 pred_df['Loan_Status'] = np.where(pred_df['Loan_Status']==0, 'No', 'Yes')
 print(pred_df['Loan_Status'].tail(1))
-st.markdown(f'Has your loan been approved?: {pred_df.Loan_Status.iat[-1]}')
+
+result = st.button('Check for loan approval')
+if result:
+    if pred_df.Loan_Status.iat[-1] == 'No':
+        st.markdown('Your loan has been declined')
+    else:
+        st.markdown('Your loan has been approved')
