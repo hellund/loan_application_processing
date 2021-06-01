@@ -57,7 +57,7 @@ print('Test accuracy: %.3f' % gs_kern.score(X_test, y_test))
 
 
 # Creating confusion matrix
-y_pred = clf1.predict(X_test)
+y_pred = gs_kern.predict(X_test)
 confmat = confusion_matrix(y_true=y_test, y_pred=y_pred)
 
 fig, ax = plt.subplots(figsize=(2.5, 2.5))

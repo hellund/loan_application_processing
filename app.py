@@ -72,7 +72,6 @@ y_pred = model.predict(X_test)
 # Saving predictions
 pred_df = pd.DataFrame(y_pred, columns = ['Loan_Status'])
 pred_df['Loan_Status'] = np.where(pred_df['Loan_Status']==0, 'No', 'Yes')
-print(pred_df['Loan_Status'].tail(1))
 
 result = st.button('Check for loan approval')
 if result:
