@@ -25,18 +25,19 @@ target_mapping = {target: idx for idx, target in
                   enumerate(np.unique(df['Loan_Status']))}
 df['Loan_Status'] = df['Loan_Status'].map(target_mapping)
 
+# Dropping Loan_ID
+df = df.drop(['Loan_ID'], axis=1)
+test_df = test_df.drop(['Loan_ID'], axis=1)
+
 # Create dummies
 df_encoded = pd.get_dummies(data=df, drop_first=True, 
                             columns=['Gender', 'Married', 'Dependents', 
                                      'Education', 'Self_Employed',
-                                     'Credit_History', 'Property_Area'])
+                                     'Property_Area'])
 test_df_encoded = pd.get_dummies(data=test_df, drop_first=True, 
                                  columns=['Gender', 'Married', 'Dependents', 
                                           'Education', 'Self_Employed', 
-                                          'Credit_History', 'Property_Area'])
-
-# Dropping Loan_ID
-df_encoded.drop(['Loan_ID'], axis=1)
+                                          'Property_Area'])
 
 # Normalizing data using MinMaxScaler
 scaler = MinMaxScaler()
