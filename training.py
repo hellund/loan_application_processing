@@ -40,13 +40,13 @@ model.fit(X_train, y_train)
 param_grid = {
     "colsample_bytree": uniform(0.7, 0.3),
     "gamma": uniform(0, 0.5),
-    "learning_rate": uniform(0.03, 0.3), # default 0.1 
-    "max_depth": randint(2, 6), # default 3
-    "n_estimators": randint(100, 150), # default 100
+    "learning_rate": uniform(0.03, 0.3),
+    "max_depth": randint(2, 6),
+    "n_estimators": randint(100, 150),
     "subsample": uniform(0.6, 0.4)
 }
 
-gs_model = RandomizedSearchCV(estimator=model, 
+rs_model = RandomizedSearchCV(estimator=model, 
                   param_distributions=param_grid, 
                   scoring='roc_auc', 
                   cv=10,
@@ -54,12 +54,12 @@ gs_model = RandomizedSearchCV(estimator=model,
                   n_iter=200,
                   verbose=1)
 
-gs_model = gs_model.fit(X_train, y_train)
-print(gs_model.best_params_)
-print('Test accuracy: %.3f' % gs_model.score(X_test, y_test))
+rs_model = rs_model.fit(X_train, y_train)
+print(rs_model.best_params_)
+print('Test accuracy: %.3f' % rs_model.score(X_test, y_test))
 
 # Creating confusion matrix
-y_pred = gs_model.predict(X_test)
+y_pred = rs_model.predict(X_test)
 confmat = confusion_matrix(y_true=y_test, y_pred=y_pred)
 
 fig, ax = plt.subplots(figsize=(2.5, 2.5))
@@ -75,8 +75,8 @@ plt.tight_layout()
 plt.show()
 
 # Training on all train data
-gs_model = gs_model.fit(X, y)
+rs_model = rs_model.fit(X, y)
 
 # Saving model
 filename = 'loan_application_model.sav'
-pickle.dump(gs_model, open(filename, 'wb'))
+pickle.dump(rs_model, open(filename, 'wb'))
