@@ -8,7 +8,7 @@ Created on Mon May 31 21:41:36 2021
 import pandas as pd
 import numpy as np
 
-from sklearn.impute import KNNImputer
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
 
 
@@ -46,8 +46,8 @@ df_encoded = pd.DataFrame(scaler.fit_transform(df_encoded),
 test_df_encoded = pd.DataFrame(scaler.fit_transform(test_df_encoded), 
                                columns = test_df_encoded.columns)
 
-# Filling NaN data/Missing data with KNNImputer
-imputer = KNNImputer(n_neighbors=4)
+# Filling NaN data/Missing data with Simple Imputer
+imputer = SimpleImputer(strategy='median')
 df_encoded = pd.DataFrame(imputer.fit_transform(df_encoded), columns=df_encoded.columns)
 test_df_encoded = pd.DataFrame(imputer.fit_transform(test_df_encoded), columns= test_df_encoded.columns)
 

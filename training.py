@@ -10,12 +10,9 @@ import matplotlib.pyplot as plt
 import pickle
 from scipy.stats import uniform, randint
 
-
 from sklearn.model_selection import train_test_split
-
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.metrics import confusion_matrix, mean_squared_error, accuracy_score
-from sklearn.model_selection import KFold, cross_val_score
+from sklearn.metrics import confusion_matrix
 import xgboost as xgb
 
 # Reading data and making dataframe
@@ -30,11 +27,9 @@ X = df.drop(['Loan_Status'], axis=1).values
 # Split data into training and test data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
                                                     random_state=1, stratify=y)
-
-model = xgb.XGBClassifier(objective="binary:logistic", random_state=1, use_label_encoder=False)
-
+model = xgb.XGBClassifier(objective="binary:logistic", random_state=1, 
+                          use_label_encoder=False)
 model.fit(X_train, y_train)
-
 
 # Hyperparameter tuning
 param_grid = {
@@ -70,7 +65,6 @@ for i in range(confmat.shape[0]):
 
 plt.xlabel('Predicted label')
 plt.ylabel('True label')
-
 plt.tight_layout()
 plt.show()
 

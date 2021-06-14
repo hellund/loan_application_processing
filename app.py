@@ -7,7 +7,7 @@ Created on Tue Jun  1 10:56:48 2021
 
 import streamlit as st
 import pandas as pd
-from sklearn.impute import KNNImputer
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
 import pickle
 import numpy as np
@@ -23,13 +23,17 @@ married = st.selectbox('Married? ',('No', 'Yes'))
 dependents = st.selectbox('How many are dependent on you? ',('0','1','2','3+'))
 education = st.selectbox('Education: ',('Graduate', 'Not Graduate'))
 self_employed = st.selectbox('Are you self employed? ',('No', 'Yes'))
-slider_a_income = st.slider('What is your income?',value=3000, min_value=0, max_value=10000, step=100)
+slider_a_income = st.slider('What is your income?',value=3000, min_value=0, 
+                            max_value=10000, step=100)
 applicant_income = st.number_input('',value=slider_a_income)
-slider_co_income = st.slider('What is your coapplicant`s income?' ,value=3500, min_value=0, max_value=10000, step=100)
+slider_co_income = st.slider('What is your coapplicant`s income?' ,value=3500, 
+                             min_value=0, max_value=10000, step=100)
 coapplicant_income = st.number_input('',value=slider_co_income)
-slider_loan_amount = st.slider('How much do u want to loan?',value=200, min_value=0, max_value=600, step=10)
+slider_loan_amount = st.slider('How much do u want to loan?',value=200, 
+                               min_value=0, max_value=600, step=10)
 loan_amount = st.number_input('',value=slider_loan_amount)
-slider_loan_amount_term = st.slider('How long is the term of the loan in months?', value=360, min_value=0, max_value=700, step=10)
+slider_loan_amount_term = st.slider('How long is the term of the loan in months?', 
+                                    value=360, min_value=0, max_value=700, step=10)
 loan_amount_term = st.number_input('',value=slider_loan_amount_term)
 credit_history = st.selectbox('Your credit history: ',('0', '1'))
 property_area = st.selectbox('Your property area? ',('Urban', 'Rural', 
@@ -71,7 +75,7 @@ test_df_encoded = pd.DataFrame(scaler.fit_transform(test_df_encoded),
                                columns = test_df_encoded.columns)
 
 # Filling NaN data/Missing data with KNNImputer
-imputer = KNNImputer(n_neighbors=4)
+imputer = SimpleImputer(strategy='median')
 test_df_encoded = pd.DataFrame(imputer.fit_transform(test_df_encoded), 
                                columns= test_df_encoded.columns)
 
